@@ -1,5 +1,6 @@
 <?php
-    echo 'Olá mundo';
+    require_once('globals.php');
+    require_once('db.php');
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
