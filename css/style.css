@@ -117,3 +117,8 @@
     padding: 40px;
 }
 
+/* Login / Register */
+#auth-row{
+    justify-content: space-evenly;
+}
+
