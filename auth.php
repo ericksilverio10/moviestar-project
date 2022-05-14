@@ -21,7 +21,7 @@
             </div>
             <div class="col-md-4" id="register-container">
                 <h2>Criar conta</h2>
-                <form action="" method="POST">
+                <form action="<?=$BASE_URL?>auth_process.php" method="POST">
                 <input type="hidden" name="type" value="register">
                     <div class="form-group">
                         <label for="name">Nome:</label>
@@ -57,6 +57,15 @@
         text-align: center;
         border-bottom: 2px solid #f5c518;
         width: 200px;
+        margin: 0 auto;
+        padding: 10px;
+        transition: .5s ease-in-out;
+        cursor: pointer;
+    }
+    #login-container h2:hover, #register-container h2:hover{
+        text-align: center;
+        border-bottom: 2px solid #f5c518;
+        width: 300px;
         margin: 0 auto;
         padding: 10px;
     }
