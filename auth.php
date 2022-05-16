@@ -36,7 +36,7 @@
                         <input type="email" class="form-control" id="email" name="email" placeholder="seuemail@email.com" required>
                     </div>
                     <div class="form-group">
-                        <label for="password">Crie uma senha:</label>
+                        <label for="password">Crie uma senha (Mínimo 8 caracteres): </label>
                         <input type="password" class="form-control" id="password" name="password" placeholder="Digite a sua senha" required>
                     </div>
                     <div class="form-group">
