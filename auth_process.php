@@ -1,9 +1,8 @@
 <?php
+    require_once('db.php');
+    require_once('globals.php');
     require_once('models/User.php');
     require_once('models/Message.php');
-    require_once('dao/UserDAO.php');
-    require_once('globals.php');
-    require_once('db.php');
 
     $message = new Message($BASE_URL);
 
@@ -20,13 +19,17 @@
 
         // Verificação de dados mínimos
         if($name && $lastname && $email && $password){
-
+            if($password == $confirmpassword){
+                echo "Oi";
+            } else{
+                $message -> setMessage("As senhas não batem", "error", "back");
+            }
         } else{
             // Enviar uma msg de erro
             $message -> setMessage("Por favor, preencha todos os campos", "error", "back");
         }
 
-    } else if($type === "login"){
+    } else if($type == "login"){
         $email = filter_input(INPUT_POST, "email");
         $password = filter_input(INPUT_POST, "password");
     }
