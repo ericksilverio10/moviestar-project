@@ -44,7 +44,6 @@
 
                     $userDAO -> create($user, $auth);
 
-                    $message -> setMessage("Usuário cadastrado com sucesso!", "sucess", "back");
                     
                 } else{
                     // Enviar uma msg de erro

@@ -1,14 +1,17 @@
 <?php
     include_once('models/User.php');
+    include_once('models/Message.php');
 
     class UserDAO implements UserDAOInterface {
 
         private $conn;
         private $url;
+        private $message;
 
         public function __construct(PDO $conn, $url){
             $this->conn = $conn;
             $this->url = $url;
+            $this->message = new Message($url);
         }
 
         public function buildUser($data){
@@ -40,7 +43,9 @@
             $stmt -> execute();
 
             //Autenticar usuário, caso auth seja true
-            
+            if($authUser){
+                $this->setTokenToSession($user->token);
+            }
 
         }
         public function update(User $user){
@@ -48,9 +53,24 @@
         }
         public function verifyToken($protected = false){
 
+            if(!empty($_SESSION['token'])){
+                $token = $_SESSION['token'];
+                $user = $this->findByToken($token);
+            } else{
+                return false;
+            }
+
         }
         public function setTokenToSession($token, $redirect = true){
+            // Salvar token na session
 
+            $_SESSION['token'] = $token;
+
+            if($redirect){
+                // Redireciona para o perfil do usuário
+                $this->message->setMessage("Seja bem-vindo!", "sucess", "editprofile.php");
+
+            }
         }
         public function authenticateUser($email, $password){
 
@@ -77,7 +97,22 @@
 
         }
         public function findByToken($token){
+            if($token != "") {
+                $stmt = $this->conn->prepare("SELECT * FROM users WHERE token = :token");
+                $stmt->bindParam(':token', $token);
+                $stmt->execute();
 
+                if($stmt->rowCount() > 0) {
+
+                    $data = $stmt->fetch();
+                    $user = $this->buildUser($data);
+
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
         }
         public function changePassword(User $user){
 
